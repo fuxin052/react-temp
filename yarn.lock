@@ -1190,6 +1190,12 @@
     "@svgr/plugin-svgo" "^4.3.1"
     loader-utils "^1.2.3"
 
+"@tanem/svg-injector@^8.0.43":
+  version "8.0.43"
+  resolved "https://registry.npm.taobao.org/@tanem/svg-injector/download/@tanem/svg-injector-8.0.43.tgz#14febd2f90f027fb7c8c4323f2e72b04966393ad"
+  dependencies:
+    "@babel/runtime" "^7.8.4"
+
 "@types/babel__core@^7.1.0":
   version "7.1.6"
   resolved "https://registry.npm.taobao.org/@types/babel__core/download/@types/babel__core-7.1.6.tgz#16ff42a5ae203c9af1c6e190ed1f30f83207b610"
@@ -1219,6 +1225,10 @@
   dependencies:
     "@babel/types" "^7.3.0"
 
+"@types/classnames@^2.2.10":
+  version "2.2.10"
+  resolved "https://registry.npm.taobao.org/@types/classnames/download/@types/classnames-2.2.10.tgz#cc658ca319b6355399efc1f5b9e818f1a24bf999"
+
 "@types/color-name@^1.1.1":
   version "1.1.1"
   resolved "https://registry.npm.taobao.org/@types/color-name/download/@types/color-name-1.1.1.tgz#1c1261bbeaa10a8055bbc5d8ab84b7b2afc846a0"
@@ -1238,6 +1248,10 @@
     "@types/events" "*"
     "@types/minimatch" "*"
     "@types/node" "*"
+
+"@types/history@*":
+  version "4.7.5"
+  resolved "https://registry.npm.taobao.org/@types/history/download/@types/history-4.7.5.tgz?cache=0&sync_timestamp=1580842872302&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2F%40types%2Fhistory%2Fdownload%2F%40types%2Fhistory-4.7.5.tgz#527d20ef68571a4af02ed74350164e7a67544860"
 
 "@types/hoist-non-react-statics@^3.3.0":
   version "3.3.1"
@@ -1311,6 +1325,21 @@
     "@types/react" "*"
     hoist-non-react-statics "^3.3.0"
     redux "^4.0.0"
+
+"@types/react-router-dom@^5.1.3":
+  version "5.1.3"
+  resolved "https://registry.npm.taobao.org/@types/react-router-dom/download/@types/react-router-dom-5.1.3.tgz#b5d28e7850bd274d944c0fbbe5d57e6b30d71196"
+  dependencies:
+    "@types/history" "*"
+    "@types/react" "*"
+    "@types/react-router" "*"
+
+"@types/react-router@*":
+  version "5.1.4"
+  resolved "https://registry.npm.taobao.org/@types/react-router/download/@types/react-router-5.1.4.tgz#7d70bd905543cb6bcbdcc6bd98902332054f31a6"
+  dependencies:
+    "@types/history" "*"
+    "@types/react" "*"
 
 "@types/react@*", "@types/react@^16.9.0":
   version "16.9.23"
@@ -8060,6 +8089,14 @@ react-scripts@3.4.0:
     workbox-webpack-plugin "4.3.1"
   optionalDependencies:
     fsevents "2.1.2"
+
+react-svg@^11.0.14:
+  version "11.0.14"
+  resolved "https://registry.npm.taobao.org/react-svg/download/react-svg-11.0.14.tgz#13f72ba76dc1c7466031196468612f9d27b94fbe"
+  dependencies:
+    "@babel/runtime" "^7.8.7"
+    "@tanem/svg-injector" "^8.0.43"
+    prop-types "^15.7.2"
 
 react@^16.13.0:
   version "16.13.0"

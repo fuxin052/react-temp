@@ -1,3 +1,9 @@
+html, body, #root, .ant-layout-has-sider{
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  height: 100%;
+}
 .table-action-button{
   color: #1890ff;
   text-decoration: none;
@@ -5,4 +11,9 @@
   outline: none;
   cursor: pointer;
   user-select: none;
+}
+
+
+.site-layout-background{
+  height: 100%;
 }
