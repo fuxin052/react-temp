@@ -2,7 +2,7 @@ import { Layout, Menu } from 'antd';
 import IconSvg  from 'src/components/icon';
 import React from 'react';
 
-import { Link } from "react-router-dom";
+import { Link } from 'react-router-dom';
 import './layout.less';
 
 const { Header, Sider, Content } = Layout;
@@ -39,7 +39,7 @@ class SiderDemo extends React.Component {
           </Menu>
         </Sider>
         <Layout>
-          <Header style={{ padding: 0, background: "#fff", height: 40 }} > </Header>
+          <Header style={{ padding: 0, background: '#fff', height: 40 }} > </Header>
           <Content>
             <div className="site-layout-background" style={{ padding: 20, minHeight: 360 }}>
               {this.props.children}

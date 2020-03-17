@@ -1,5 +1,5 @@
 import requireAll from 'src/utils/requireAll';
-import { camelCase } from 'lodash'
+import { camelCase } from 'lodash';
 
 /*
 model只能写在pages 文件夹内的页面文件夹内, 但是不能在pages根目录
@@ -13,18 +13,18 @@ model只能写在pages 文件夹内的页面文件夹内, 但是不能在pages�
 const modelsModelPath = require.context('./models', false, /\.js$/);
 
 const commonModels = requireAll(modelsModelPath, (total, file, path) => {
-  const name = camelCase(path.replace(/(\.\/|\.js)/g, ''))
-  total[name] = file.default || file
+  const name = camelCase(path.replace(/(\.\/|\.js)/g, ''));
+  total[name] = file.default || file;
 });
 
 const pagesModelPath = require.context('../pages', true, /(\/)model\.js$/);
 
 const pagesModel = requireAll(pagesModelPath, (total, file, path) => {
-  file = file.default || file
+  file = file.default || file;
   const name = file.namespace || camelCase(path.replace(/(\.\/|\/model\.js)/g, ''));
-  if (process.env.NODE_ENV === "development" && (commonModels[name] || total[name])) {
-    throw new Error(`ModelName "${name}" has used, please change one. check ${require('path').resolve('/src/pages', path)}`)
+  if (process.env.NODE_ENV === 'development' && (commonModels[name] || total[name])) {
+    throw new Error(`ModelName "${name}" has used, please change one. check ${require('path').resolve('/src/pages', path)}`);
   }
   total[name] = file;
 });
-export default Object.assign({}, commonModels, pagesModel)
+export default Object.assign({}, commonModels, pagesModel);

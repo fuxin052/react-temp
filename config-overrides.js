@@ -1,10 +1,10 @@
 
 const {
   override, fixBabelImports, addLessLoader, addBabelPlugin,
-  addBundleVisualizer, addWebpackAlias
+  addBundleVisualizer, addWebpackAlias,
 } = require('customize-cra');
 const modifyVars = require('./antd.theme');
-const path = require("path");
+const path = require('path');
 
 module.exports = override(
   /**
@@ -18,8 +18,8 @@ module.exports = override(
    * lodash按需加载
    */
   fixBabelImports('lodash', {
-    libraryDirectory: "",
-    camel2DashComponentName: false
+    libraryDirectory: '',
+    camel2DashComponentName: false,
   }),
   /**
    * less支持
@@ -33,18 +33,18 @@ module.exports = override(
    * @ 装饰器支持
    */
   addBabelPlugin(
-    ["@babel/plugin-proposal-decorators", { "legacy": true }]
+    ['@babel/plugin-proposal-decorators', { 'legacy': true }],
   ),
   /**
    * 设置webpack别名
    */
   addWebpackAlias({
-    "src": path.resolve(__dirname, "src")
+    'src': path.resolve(__dirname, 'src'),
   }),
   /**
    * 打包分析
    */
-  process.env.NODE_ENV === 'production' && addBundleVisualizer()
+  process.env.NODE_ENV === 'production' && addBundleVisualizer(),
 );
 
 
