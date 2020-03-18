@@ -9,7 +9,7 @@ const LoginCore = (props: any) => {
       name="basic"
       initialValues={{ username: '12345', password: '12345' }}
       onFinish={props.loginSubmit}
-      style={{ maxWidth: 300, margin: 'auto', padding:'50px 0' }}
+      style={{ maxWidth: 300, margin: 'auto', padding: '50px 0' }}
     >
       <Form.Item
         name="username"
@@ -35,6 +35,6 @@ const LoginCore = (props: any) => {
 };
 
 export default connect(
-  ({ common, loading }: any) => ({ common,loading:loading.models.login }),
+  ({ loading }: any) => ({ loading: loading.models.login }),
   ({ login }: any) => login,
 )(LoginCore);

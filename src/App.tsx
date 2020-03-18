@@ -4,19 +4,17 @@ import Login from 'src/components/login';
 import RenderRouter from './renderRouter';
 import { connect } from 'react-redux';
 
-
-
 export default connect(
   ({ login }: any) => ({ login }),
 )(({ login }: { login: boolean }) => <Router>
   <Switch>
     {
-      login ? <Redirect to="/" /> :
+      login ? <Redirect from="/login" to="/" /> :
         <>
           <Redirect to="/login" />
           <Route exact path="/login" component={Login} />
         </>
     }
-    <Route exact path="/*" component={RenderRouter} />
+    <Route path="/*" component={RenderRouter} />
   </Switch>
 </Router>);
