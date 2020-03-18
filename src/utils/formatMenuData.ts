@@ -22,13 +22,13 @@ export default function (menu: Menu[], permission: Set<string>, flag: boolean = 
 
 function removeNoPermission(menuItem: Menu | Button, permission: Set<string>, flag: boolean): Menu | undefined {
 
-  const f = every(menuItem.children, childrenItem => childrenItem.type === 'button');
+  const allButton = every(menuItem.children, childrenItem => childrenItem.type === 'button');
   if (menuItem.type === 'button') {
     return undefined;
   } else if (menuItem.children && menuItem.children.length > 0) {
     if (flag && menuItem.permissionCode && !permission.has(menuItem.permissionCode)) {
       return undefined;
-    } else if (f) {
+    } else if (allButton) {
       delete menuItem.children;
       return menuItem;
     } else {

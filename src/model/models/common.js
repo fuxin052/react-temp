@@ -14,6 +14,7 @@ export default {
   reducers: {
     updataState: (state, payload) => Object.assign(state, payload),
   },
+
   effects: {
     async getInfo() {
       const [menuRes, permissionRes] = await Promise.all([
