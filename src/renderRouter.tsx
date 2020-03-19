@@ -2,9 +2,10 @@ import React, { Component, Suspense } from 'react';
 import { connect } from 'react-redux';
 import Layout from 'src/components/layout';
 import { Spin } from 'antd';
-import { Switch, Route } from 'react-router-dom';
+import { Switch, Route, Redirect } from 'react-router-dom';
 import { permissionWhiteList } from 'src/route/index';
 import Page404 from 'src/components/page404';
+import { find } from 'lodash';
 
 const Loading = () => <div className="home-loading">
   <Spin />
@@ -17,8 +18,15 @@ class RenderRouter extends Component<any> {
       props.getInfo();
     }
   }
+
+  renderOtherRoute = () => {
+    const { common: { flattenMenu, permission } } = this.props;
+    const result = find(flattenMenu, o => o.path && o.component && ((permissionWhiteList.has(o.path) || permission.has(o.permissionCode))));
+    console.log(result);
+    return result ? <Redirect to={result.path} /> : <Page404 />;
+  }
+
   render() {
-    new Set();
     const { common: { hasData, flattenMenu, permission } } = this.props;
     if (hasData) {
       return <Layout>
@@ -26,8 +34,8 @@ class RenderRouter extends Component<any> {
           <Switch>
             {flattenMenu.map(
               (item: any) => item.component && ((permissionWhiteList.has(item.path) || permission.has(item.permissionCode))) ?
-                <Route key={item.path} exact path={item.path} component={item.component}/> : null)}
-            <Route component={Page404}></Route>
+                <Route key={item.path} exact path={item.path} component={item.component} /> : null)}
+            <Route render={this.renderOtherRoute} />
           </Switch>
         </Suspense>
       </Layout>;

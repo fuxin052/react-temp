@@ -1,0 +1,48 @@
+.search-table-component {
+  display: flex;
+  flex-flow: column nowrap;
+  // place-content: center;
+  align-items: flex-start;
+  height: 100%;
+
+  // 搜索部分
+  .st-search-root {
+    flex: 0 1 auto;
+    width: 100%;
+    .ant-form-item-label{
+      min-width: 80px;
+      text-align: right;
+    }
+  }
+
+  // 工具栏按钮部分
+  .st-tool-root {
+    flex: 0 1 auto;
+    width: 100%;
+    padding: 10px 0;
+
+    &>* {
+      margin-right: 10px;
+    }
+  }
+
+  // 表格本体
+  .st-table-root {
+    flex: 3 1 auto;
+    width: 100%;
+  }
+
+  // 底部栏
+  .st-bottom-root {
+    padding-top: 15px;
+    text-align: right;
+    width: 100%;
+    flex: 0 1 auto;
+  }
+
+  div.ant-typography,
+  .ant-typography p {
+    color: inherit;
+    margin-bottom: 0;
+  }
+}

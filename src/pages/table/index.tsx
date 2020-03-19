@@ -1,71 +1,10 @@
 import React, { Component } from 'react';
+import STable from 'src/components/search-table';
 
 class Index extends Component {
   render() {
     return (
-      <div>
-        <p>Table</p>
-        <p>Table</p>
-        <p>Table</p>
-        <p>Table</p>
-        <p>Table</p>
-        <p>Table</p>
-        <p>Table</p>
-        <p>Table</p>
-        <p>Table</p>
-        <p>Table</p>
-        <p>Table</p>
-        <p>Table</p>
-        <p>Table</p>
-        <p>Table</p>
-        <p>Table</p>
-        <p>Table</p>
-        <p>Table</p>
-        <p>Table</p>
-        <p>Table</p>
-        <p>Table</p>
-        <p>Table</p>
-        <p>Table</p>
-        <p>Table</p>
-        <p>Table</p>
-        <p>Table</p>
-        <p>Table</p>
-        <p>Table</p>
-        <p>Table</p>
-        <p>Table</p>
-        <p>Table</p>
-        <p>Table</p>
-        <p>Table</p>
-        <p>Table</p>
-        <p>Table</p>
-        <p>Table</p>
-        <p>Table</p>
-        <p>Table</p>
-        <p>Table</p>
-        <p>Table</p>
-        <p>Table</p>
-        <p>Table</p>
-        <p>Table</p>
-        <p>Table</p>
-        <p>Table</p>
-        <p>Table</p>
-        <p>Table</p>
-        <p>Table</p>
-        <p>Table</p>
-        <p>Table</p>
-        <p>Table</p>
-        <p>Table</p>
-        <p>Table</p>
-        <p>Table</p>
-        <p>Table</p>
-        <p>Table</p>
-        <p>Table</p>
-        <p>Table</p>
-        <p>Table</p>
-        <p>Table</p>
-        <p>Table</p>
-
-      </div>
+      <STable />
     );
   }
 }

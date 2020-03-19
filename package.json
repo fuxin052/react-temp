@@ -7,7 +7,7 @@
     "@rematch/loading": "^1.2.1",
     "ag-grid-community": "^22.1.1",
     "ag-grid-react": "^22.1.1",
-    "antd": "^4.0.2",
+    "antd": "^4.0.3",
     "axios": "^0.19.2",
     "classnames": "^2.2.6",
     "lodash": "^4.17.15",

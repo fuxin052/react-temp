@@ -8,6 +8,9 @@ import { init } from '@rematch/core';
 import models from './model';
 import options from './model/loading';
 import './utils/ajax.js';
+import { ConfigProvider } from 'antd';
+import zhCN from 'antd/es/locale/zh_CN';
+import 'moment/locale/zh-cn';
 
 const loading = createLoadingPlugin(options);
 const initialState = {
@@ -19,4 +22,4 @@ const store = init({
   redux: { initialState },
 });
 
-ReactDOM.render(<Provider store={store}><App /></Provider>, document.getElementById('root'));
+ReactDOM.render(<Provider store={store}><ConfigProvider locale={zhCN}><App /></ConfigProvider></Provider>, document.getElementById('root'));

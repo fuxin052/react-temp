@@ -98,7 +98,6 @@ class SiderDemo extends React.Component<any, any> {
         openKeys: openKeys.length === 0 ? [...selectedKeys] : openKeys,
       };
     }
-    console.log(breadcrumbList);
     return (
       <Layout id="layout">
         <Sider
@@ -128,7 +127,7 @@ class SiderDemo extends React.Component<any, any> {
             </Breadcrumb>
           </Header>
           <Content>
-            <div className="site-layout-background" style={{ padding: 20, minHeight: 360, overflowY: 'auto' }}>
+            <div className="site-layout-background" style={{ padding: 15, minHeight: 360, overflowY: 'auto' }}>
               {this.props.children}
             </div>
           </Content>
