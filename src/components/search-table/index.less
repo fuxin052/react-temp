@@ -9,9 +9,14 @@
   .st-search-root {
     flex: 0 1 auto;
     width: 100%;
-    .ant-form-item-label{
+
+    .ant-form-item-label {
       min-width: 80px;
       text-align: right;
+    }
+
+    .collapse-button {
+      margin-left: 8px;
     }
   }
 
@@ -19,8 +24,7 @@
   .st-tool-root {
     flex: 0 1 auto;
     width: 100%;
-    padding: 10px 0;
-
+    padding: 5px 0 10px;
     &>* {
       margin-right: 10px;
     }
@@ -30,6 +34,28 @@
   .st-table-root {
     flex: 3 1 auto;
     width: 100%;
+
+    .ag-root,
+    .ag-row {
+      border-color: #d9d9d9;
+    }
+
+    .ag-header {
+      border-bottom-color: #d9d9d9;
+    }
+
+    .ag-pinned-right-header,
+    .ag-ltr .ag-cell:not(.ag-cell-focus).ag-cell-first-right-pinned:not(.ag-cell-range-left),
+    .ag-ltr .ag-cell.ag-cell-range-selected:not(.ag-cell-range-single-cell).ag-cell-first-right-pinned:not(.ag-cell-range-left),
+    .ag-ltr .ag-root:not(.ag-has-focus) .ag-cell.ag-cell-first-right-pinned:not(.ag-cell-range-left) {
+      border-left-color: #d9d9d9;
+    }
+    .ag-pinned-left-header,
+    .ag-ltr .ag-cell:not(.ag-cell-focus).ag-cell-last-left-pinned:not(.ag-cell-range-right),
+    .ag-ltr .ag-cell.ag-cell-range-selected:not(.ag-cell-range-single-cell).ag-cell-last-left-pinned:not(.ag-cell-range-right),
+    .ag-ltr .ag-root:not(.ag-has-focus) .ag-cell.ag-cell-last-left-pinned:not(.ag-cell-range-right) {
+      border-right-color: #d9d9d9;
+    }
   }
 
   // 底部栏

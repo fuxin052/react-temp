@@ -15,6 +15,6 @@ export default connect(
           <Route exact path="/login" component={Login} />
         </>
     }
-    <Route path="/*" component={RenderRouter} />
+    <Route component={RenderRouter} />
   </Switch>
 </Router>);

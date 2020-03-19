@@ -118,10 +118,14 @@ class SiderDemo extends React.Component<any, any> {
         </Sider>
         <Layout>
           <Header style={{ padding: 0, background: '#fff', height: 40 }} >
-            <Breadcrumb style={{lineHeight:'40px',float:'left',paddingLeft:15}}>
+            <Breadcrumb style={{ lineHeight: '40px', float: 'left', paddingLeft: 15 }}>
               {
-                breadcrumbList.map((item: any) =>
-                  <Breadcrumb.Item key={item.path}>{item.name || item.path}</Breadcrumb.Item>,
+                breadcrumbList.map((item: any, index: number) =>
+                  <Breadcrumb.Item key={item.path}>{
+                    breadcrumbList.length === index + 1 ?
+                      (item.name || item.path) :
+                      <Link to={item.path}>{item.name || item.path}</Link>
+                  }</Breadcrumb.Item>,
                 )
               }
             </Breadcrumb>

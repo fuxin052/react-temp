@@ -10,6 +10,7 @@ export default {
     permission: [],
     flattenMenu: [],
     hasData: false,
+    clentWidth: 0,
   },
   reducers: {
     updataState: (state, payload) => Object.assign(state, payload),
@@ -21,7 +22,7 @@ export default {
         axios.get('http://rap2.taobao.org:38080/app/mock/149215/mock/menu'),
         axios.get('http://rap2.taobao.org:38080/app/mock/149215/mock/permission'),
       ]);
-      const permission =  new Set(permissionRes.data || []);
+      const permission = new Set(permissionRes.data || []);
       this.updataState({
         menu: formatMenu(menuRes.data, permission, true),
         permission,
@@ -29,5 +30,7 @@ export default {
         hasData: true,
       });
     },
+    updataClentWidth(clentWidth) { this.updataState({ clentWidth }); },
+    updataHasData(hasData) { this.updataState({ hasData }); },
   },
 };

@@ -11,10 +11,12 @@ import './utils/ajax.js';
 import { ConfigProvider } from 'antd';
 import zhCN from 'antd/es/locale/zh_CN';
 import 'moment/locale/zh-cn';
+import { debounce } from 'lodash';
 
 const loading = createLoadingPlugin(options);
 const initialState = {
   login: !!window.localStorage.getItem('RTLOGIN'),
+  common: { clientWidth: document.body.clientWidth },
 };
 const store = init({
   models,
@@ -22,4 +24,18 @@ const store = init({
   redux: { initialState },
 });
 
-ReactDOM.render(<Provider store={store}><ConfigProvider locale={zhCN}><App /></ConfigProvider></Provider>, document.getElementById('root'));
+const resizeCore = debounce((newClientWidth: number) => {
+  store.dispatch({ type: 'common/updataClentWidth', payload: newClientWidth });
+}, 300);
+
+function resize() {
+  const newClientWidth = document.body.clientWidth;
+  if (newClientWidth !== store.getState().common.clientWidth) {
+    resizeCore(newClientWidth);
+  }
+}
+
+window.addEventListener('resize', resize);
+
+ReactDOM.render(<Provider store={store}><ConfigProvider locale={zhCN}><App />
+</ConfigProvider></Provider>, document.getElementById('root'));
