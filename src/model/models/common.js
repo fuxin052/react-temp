@@ -10,10 +10,10 @@ export default {
     permission: [],
     flattenMenu: [],
     hasData: false,
-    clentWidth: 0,
+    clientWidth: 0,
   },
   reducers: {
-    updataState: (state, payload) => Object.assign(state, payload),
+    updataState: (state, payload) => Object.assign({}, state, payload),
   },
 
   effects: {
@@ -30,7 +30,7 @@ export default {
         hasData: true,
       });
     },
-    updataClentWidth(clentWidth) { this.updataState({ clentWidth }); },
+    updataClientWidth(clientWidth, state) { (clientWidth !== state.common.clientWidth) && this.updataState({ clientWidth }); },
     updataHasData(hasData) { this.updataState({ hasData }); },
   },
 };

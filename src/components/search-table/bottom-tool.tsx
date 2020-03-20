@@ -11,7 +11,7 @@ class BottomTool extends Component {
           pageSize={20}
           showSizeChanger
           defaultCurrent={1}
-          pageSizeOptions={['10','20','50','100']}
+          pageSizeOptions={['10', '20', '50', '100']}
         />
       </div>
     );

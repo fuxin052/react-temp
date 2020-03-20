@@ -1,56 +1,32 @@
 import React, { useState } from 'react';
-import { Input, Form, Row, Col, InputNumber, Select, DatePicker, Button } from 'antd';
-import locale from 'antd/es/date-picker/locale/zh_CN';
+import { Form, Row, Col, Button } from 'antd';
 import IconSVG from 'src/components/icon';
-
-
-const colProps = {
-  xxl: 6,  // xxl  ≥1600px
-  xl: 8,   // xl   ≥1200px
-  lg: 8,   // lg	  ≥992px
-  md: 12,  // md	  ≥768px
-  sm: 12,  // sm	  ≥576px
-};
+import { connect } from 'react-redux';
+import renderSearchInput, { colProps, getCol, getButtonOffset } from './render-input';
 
 const SearchForm = (props: any) => {
+  const { searchConfig, clientWidth } = props;
   const [collapsed, setCollapsed] = useState(false);
-  const collapseRender = (collapsed: boolean) => {
+  const [form] = Form.useForm();
+  const collapseRender = (collapsed: boolean, l: number, n: number) => {
+    if (l < n) return null;
     const txt = collapsed ? '展开' : '收起';
     const transform = `rotate(${collapsed ? 0 : 0.5}turn)`;
     const style = { marginLeft: '0.2em', transition: '0.3s all', transform, display: 'inline-block' };
     return <span onClick={() => setCollapsed(!collapsed)} className="collapse-button table-action-button">{txt}<IconSVG type="down" style={style} /></span>;
   };
+  const onFinish = (v: any) => { console.log(v); };
+  const resetFields = () => form.resetFields();
+  const cols = getCol(clientWidth);
   return (
     <div className="st-search-root">
-      <Form layout="horizontal" style={{ overflow: 'hidden' }}>
-        <Row gutter={16} justify="end">
-          <Col md={8} sm={24}>
-            <Form.Item label="规则名称" name="a1">
-              <Input placeholder="请输入" />
-            </Form.Item>
-          </Col>
-          <Col md={8} sm={24}>
-            <Form.Item label="使用状态">
-              <Select placeholder="请选择" style={{ width: '100%' }}>
-                <Select.Option value="0">关闭</Select.Option>
-                <Select.Option value="1">运行中</Select.Option>
-              </Select>
-            </Form.Item>
-          </Col>
-          <Col md={8} sm={24}>
-            <Form.Item label="调用次数">
-              <InputNumber style={{ width: '100%' }} />
-            </Form.Item>
-          </Col>
-          <Col md={8} sm={24}>
-            <Form.Item label="更新日期更新日期更新日期更新日期更新日期更新日期">
-              <DatePicker locale={locale} style={{ width: '100%' }} placeholder="请输入更新日期" />
-            </Form.Item>
-          </Col>
-          <Col {...colProps} style={{ textAlign: 'right' }}>
+      <Form layout="horizontal" form={form} style={{ overflow: 'hidden' }} onFinish={onFinish}>
+        <Row gutter={16} >
+          {renderSearchInput(searchConfig, collapsed, cols)}
+          <Col {...colProps} style={{ textAlign: 'right' }} offset={getButtonOffset(searchConfig.length, cols, collapsed)}>
             <Button type="primary" htmlType="submit">查询</Button>
-            <Button style={{ marginLeft: 8 }} >重置</Button>
-            {collapseRender(collapsed)}
+            <Button style={{ marginLeft: 8 }} onClick={resetFields}>重置</Button>
+            {collapseRender(collapsed, searchConfig.length, cols)}
           </Col>
         </Row>
       </Form>
@@ -58,5 +34,6 @@ const SearchForm = (props: any) => {
   );
 };
 
-
-export default SearchForm;
+export default connect(({ common }: any) => (
+  { clientWidth: common.clientWidth }
+))(SearchForm);

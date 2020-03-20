@@ -5,7 +5,6 @@ import 'ag-grid-community/dist/styles/ag-grid.css';
 import { Divider, Typography } from 'antd';
 
 class TableBase extends Component<any, any> {
-
   constructor(props: any) {
     super(props);
     const Btn = (prop: any) => <>
@@ -21,6 +20,7 @@ class TableBase extends Component<any, any> {
           checkboxSelection: true,
           pinned: 'left',
           suppressMovable: true,
+          headerCheckboxSelection:true,
           width: 50,
         },
         {

@@ -25,14 +25,11 @@ const store = init({
 });
 
 const resizeCore = debounce((newClientWidth: number) => {
-  store.dispatch({ type: 'common/updataClentWidth', payload: newClientWidth });
-}, 300);
+  store.dispatch({ type: 'common/updataClientWidth', payload: newClientWidth });
+}, 100);
 
 function resize() {
-  const newClientWidth = document.body.clientWidth;
-  if (newClientWidth !== store.getState().common.clientWidth) {
-    resizeCore(newClientWidth);
-  }
+    resizeCore(document.body.clientWidth);
 }
 
 window.addEventListener('resize', resize);
