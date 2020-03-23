@@ -1,17 +1,19 @@
-import React from 'react';
+import React, { memo } from 'react';
 import { Button } from 'antd';
 
-const ToolBar = () => {
+export default memo((props: any) => {
+  const { toolBarList } = props;
   return <div className="st-tool-root">
-    <Button>工具按钮</Button>
-    <Button>工具按钮</Button>
-    <Button>工具按钮</Button>
-    <Button>工具按钮</Button>
-    <Button>工具按钮</Button>
-    <Button>工具按钮</Button>
-    <Button>工具按钮</Button>
+    {
+      toolBarList.map((v: any, i: number) =>
+        <Button
+          key={i}
+          {...v}
+          onClick={e => v.onClick && v.onClick(e, props.api)}
+          disabled={v.disabled && v.disabled()}
+        >
+          {v.text}
+        </Button>)
+    }
   </div>;
-};
-
-
-export default ToolBar;
+});

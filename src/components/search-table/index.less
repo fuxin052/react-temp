@@ -5,6 +5,18 @@
   align-items: flex-start;
   height: 100%;
 
+
+  .ant-spin-nested-loading {
+    width: 100%;
+    height: 100%;
+
+    .ant-spin-container {
+      display: flex;
+      flex-flow: column;
+      height: 100%;
+    }
+  }
+
   // 搜索部分
   .st-search-root {
     flex: 0 1 auto;
@@ -111,6 +123,10 @@
 
     .ag-cell .ag-icon {
       margin-top: -0.2em;
+    }
+
+    .ag-react-container .ant-divider:first-child {
+      display: none;
     }
   }
 

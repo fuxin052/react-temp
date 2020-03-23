@@ -5,7 +5,7 @@ import { connect } from 'react-redux';
 import renderSearchInput, { colProps, getCol, getButtonOffset } from './render-input';
 
 const SearchForm = (props: any) => {
-  const { searchConfig, clientWidth } = props;
+  let { searchConfig, clientWidth } = props;
   const [collapsed, setCollapsed] = useState(false);
   const [form] = Form.useForm();
   const collapseRender = (collapsed: boolean, l: number, n: number) => {
@@ -18,6 +18,7 @@ const SearchForm = (props: any) => {
   const onFinish = (v: any) => { console.log(v); };
   const resetFields = () => form.resetFields();
   const cols = getCol(clientWidth);
+  searchConfig = searchConfig || [];
   return (
     <div className="st-search-root">
       <Form layout="horizontal" form={form} style={{ overflow: 'hidden' }} onFinish={onFinish}>
@@ -25,7 +26,7 @@ const SearchForm = (props: any) => {
           {renderSearchInput(searchConfig, collapsed, cols)}
           <Col {...colProps} style={{ textAlign: 'right' }} offset={getButtonOffset(searchConfig.length, cols, collapsed)}>
             <Button type="primary" htmlType="submit">查询</Button>
-            <Button style={{ marginLeft: 8 }} onClick={resetFields}>重置</Button>
+            <Button hidden={searchConfig.length === 0} style={{ marginLeft: 8 }} onClick={resetFields}>重置</Button>
             {collapseRender(collapsed, searchConfig.length, cols)}
           </Col>
         </Row>
