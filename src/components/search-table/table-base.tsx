@@ -1,10 +1,11 @@
-import React, { Fragment } from 'react';
+// region
+import React, { Fragment, memo } from 'react';
 import { AgGridReact } from 'ag-grid-react';
 import 'ag-grid-community/dist/styles/ag-theme-balham.css';
 import 'ag-grid-community/dist/styles/ag-grid.css';
 import { Divider, Typography, Dropdown, Menu } from 'antd';
 import IconSVG from 'src/components/icon';
-
+// endregion
 // region 这里面有用法
 // class TableBase extends Component<any, any> {
 //   constructor(props: any) {
@@ -191,8 +192,7 @@ const handlerColumn = (props: any): any[] => {
   }
   return columnTemp;
 };
-
-const TableBase = (props: any) => {
+const TableBase = memo((props: any) => {
   const { rowData, setGridApi, setSelectChange } = props;
   return <div className="ag-theme-balham st-table-root" style={{ width: '100%', minHeight: 300 }}>
     <AgGridReact
@@ -207,7 +207,7 @@ const TableBase = (props: any) => {
       rowDeselection
     />
   </div>;
-};
+});
 
 export default TableBase;
 

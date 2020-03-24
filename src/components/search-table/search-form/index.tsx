@@ -4,8 +4,9 @@ import IconSVG from 'src/components/icon';
 import { connect } from 'react-redux';
 import renderSearchInput, { colProps, getCol, getButtonOffset } from './render-input';
 
+
 const SearchForm = (props: any) => {
-  let { searchConfig, clientWidth } = props;
+  let { searchConfig, clientWidth, searchData } = props;
   const [collapsed, setCollapsed] = useState(false);
   const [form] = Form.useForm();
   const collapseRender = (collapsed: boolean, l: number, n: number) => {
@@ -21,9 +22,10 @@ const SearchForm = (props: any) => {
   const resetFields = () => form.resetFields();
   const cols = getCol(clientWidth);
   searchConfig = searchConfig || [];
+  const [initialValues] = useState(searchData);
   return (
     <div className="st-search-root">
-      <Form layout="horizontal" form={form} style={{ overflow: 'hidden' }} onFinish={onFinish}>
+      <Form layout="horizontal" form={form} style={{ overflow: 'hidden' }} onFinish={onFinish} initialValues={initialValues}>
         <Row gutter={16} >
           {renderSearchInput(searchConfig, collapsed, cols)}
           <Col {...colProps} style={{ textAlign: 'right' }} offset={getButtonOffset(searchConfig.length, cols, collapsed)}>

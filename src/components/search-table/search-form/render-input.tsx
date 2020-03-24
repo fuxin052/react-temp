@@ -20,7 +20,9 @@ export default (searchConfig: any, collapsed: boolean, cols: number) =>
       </Col>;
       case 'select': return <Col {...colp}>
         <Form.Item {...formitemp}>
-          <Select placeholder={!item.noplaceholder && (item.placeholder || ph(item.label, 1))}></Select>
+          <Select placeholder={!item.noplaceholder && (item.placeholder || ph(item.label, 1))}>
+            {item.option && item.option.map((opt: any) => <Select.Option key={opt.value} value={opt.value}>{opt.label}</Select.Option>)}
+          </Select>
         </Form.Item>
       </Col>;
       case 'number': return <Col {...colp}>

@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import STable from 'src/components/search-table';
-
-
+import moment from 'moment';
 
 
 class Index extends Component<any, any> {
@@ -18,10 +17,10 @@ class Index extends Component<any, any> {
       },
     ],
     searchConfig: [
-      { label: '名称', name: 'a1', type: 'input' },
-      { label: '名称2', name: 'a2', type: 'select' },
-      { label: '名称3', name: 'a3', type: 'number' },
-      { label: '名称4', name: 'a4', type: 'data' },
+      { label: '名称', name: 'a1', type: 'input', initialValue: '111' },
+      { label: '名称2', name: 'a2', type: 'select', initialValue: '111' },
+      { label: '名称3', name: 'a3', type: 'number', initialValue: 111 },
+      { label: '名称4', name: 'a4', type: 'data', initialValue: moment('2019-04-04') },
       { label: '名称5', name: 'a5', type: 'range' },
     ],
     getData: (pageData: any, searchData: any) => fetch('http://rap2.taobao.org:38080/app/mock/149215/mock/list').then(res => res.json()),
@@ -49,6 +48,7 @@ class Index extends Component<any, any> {
         headerName: '地址',
         field: 'address',
         flex: 2,
+        minWidth: 300,
       },
       {
         headerName: '团长',
@@ -66,11 +66,13 @@ class Index extends Component<any, any> {
         headerName: '修改日期',
         field: 'updatedAt',
         flex: 2,
+        minWidth: 200,
       },
       {
         headerName: '创建日期',
         field: 'createdAt',
         flex: 2,
+        minWidth: 200,
       },
     ],
     toolBar: [
@@ -82,8 +84,23 @@ class Index extends Component<any, any> {
         disabled: (rows: any[]) => rows.length === 0,
       },
     ],
+    pageSizeOptions: ['15', '50', '100', '200'],
+    defaultPageSize: 50,
     getTableApi: () => { },
+    initFetch:false,
   }
+  componentDidMount() {
+    setTimeout(() => {
+      const searchConfig: any = this.state.searchConfig;
+      searchConfig[1].option = [
+        { label: '111111', value: 1 },
+        { label: '222222', value: 2 },
+        { label: '333333', value: 3 },
+      ];
+      this.setState({searchConfig:[...searchConfig]});
+    }, 5000);
+  }
+
   render() {
     return (
       <STable {...this.state} />
