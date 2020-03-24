@@ -6,7 +6,7 @@ import renderSearchInput, { colProps, getCol, getButtonOffset } from './render-i
 
 
 const SearchForm = (props: any) => {
-  let { searchConfig, clientWidth, searchData } = props;
+  let { searchConfig, clientWidth, searchData, searchOption } = props;
   const [collapsed, setCollapsed] = useState(false);
   const [form] = Form.useForm();
   const collapseRender = (collapsed: boolean, l: number, n: number) => {
@@ -27,7 +27,7 @@ const SearchForm = (props: any) => {
     <div className="st-search-root">
       <Form layout="horizontal" form={form} style={{ overflow: 'hidden' }} onFinish={onFinish} initialValues={initialValues}>
         <Row gutter={16} >
-          {renderSearchInput(searchConfig, collapsed, cols)}
+          {renderSearchInput(searchConfig, collapsed, cols, searchOption)}
           <Col {...colProps} style={{ textAlign: 'right' }} offset={getButtonOffset(searchConfig.length, cols, collapsed)}>
             <Button type="primary" htmlType="submit">查询</Button>
             <Button hidden={searchConfig.length === 0} style={{ marginLeft: 8 }} onClick={resetFields}>重置</Button>

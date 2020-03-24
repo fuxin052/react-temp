@@ -97,11 +97,12 @@ class STable extends React.Component<any, any>{
 
   render() {
     const { searchConfig, column, selectAbled, operationList, toolBar, pageSizeOptions,
+      searchOption,
     } = this.props;
     const { total, pageData, spinning, selectChange, rowData, searchData,
     } = this.state;
     return <div className="search-table-component">
-      <SearchForm getListData={this.getListData} searchConfig={searchConfig} searchData={searchData} />
+      <SearchForm getListData={this.getListData} searchConfig={searchConfig} searchData={searchData} searchOption={searchOption} />
       <Spin spinning={spinning}>
         {toolBar && toolBar.length ? <ToolBar api={this.api} selectChange={selectChange} toolBarList={toolBar} /> : null}
         <TableBase

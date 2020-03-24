@@ -8,7 +8,7 @@ export const getButtonOffset = (l: number, n: number, collapsed: boolean) => l >
 const w100 = { width: '100%' };
 const ph = (name: any, t?: any): string => `请${t ? '选择' : '输入'}${name}`;
 
-export default (searchConfig: any, collapsed: boolean, cols: number) =>
+export default (searchConfig: any, collapsed: boolean, cols: number, searchOption: any = {}) =>
   searchConfig.map((item: any, index: number) => {
     const colp = { ...colProps, key: item.name, hidden: collapsed && (cols - 2 < index) };
     const formitemp = pick(item, ['label', 'name', 'rules']);
@@ -21,7 +21,8 @@ export default (searchConfig: any, collapsed: boolean, cols: number) =>
       case 'select': return <Col {...colp}>
         <Form.Item {...formitemp}>
           <Select placeholder={!item.noplaceholder && (item.placeholder || ph(item.label, 1))}>
-            {item.option && item.option.map((opt: any) => <Select.Option key={opt.value} value={opt.value}>{opt.label}</Select.Option>)}
+            {searchOption[item.name] && searchOption[item.name].map((opt: any) =>
+              <Select.Option key={opt.value} value={opt.value}>{opt.label}</Select.Option>)}
           </Select>
         </Form.Item>
       </Col>;
