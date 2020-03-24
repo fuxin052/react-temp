@@ -6,11 +6,11 @@ import ToolBar from './tool-bar';
 import SearchForm from './search-form';
 import BottomTool from './bottom-tool';
 import { Spin } from 'antd';
-import { GridReadyEvent, GridApi } from 'ag-grid-community';
+import { GridReadyEvent, GridApi, ColDef } from 'ag-grid-community';
 // endregion
 
-const getInitialValues = (searchConfig: any[]) => {
-  const initialValues: any = {};
+const getInitialValues = (searchConfig: SearchConfigType[]) => {
+  const initialValues: SearchDataType = {};
   for (let item of searchConfig) {
     if (item.name && item.initialValue) {
       initialValues[item.name] = item.initialValue;
@@ -19,15 +19,10 @@ const getInitialValues = (searchConfig: any[]) => {
   return initialValues;
 };
 
-interface TableApi {
-  gridApi?: GridApi
-  getListData: ([p]: any, [s]: any, b?: boolean) => void
-  getSearchData: () => any
-  getPageData: () => any
-}
 
-class STable extends React.Component<any, any>{
-  constructor(props: any) {
+
+class STable extends React.Component<StableProps, StableState>{
+  constructor(props: StableProps) {
     super(props);
     this.state = {
       selectChange: true,
@@ -37,7 +32,7 @@ class STable extends React.Component<any, any>{
       searchData: getInitialValues(props.searchConfig),
       pageData: {
         page: 1,
-        pageSize: props.defaultPageSize,
+        pageSize: props.defaultPageSize!,
       },
     };
     this.api = {
@@ -51,9 +46,10 @@ class STable extends React.Component<any, any>{
     pageSizeOptions: ['10', '20', '50', '100'],
     defaultPageSize: 10,
     initFetch: true,
+    selectAbled: false,
   }
 
-  getListData = async (p?: any, s?: any, firstPage?: boolean) => {
+  getListData = async (p?: PageDataType, s?: SearchDataType, firstPage?: boolean) => {
     const { pageData, searchData } = this.state;
     const { getData } = this.props;
     let pchange = false, schange = false;
@@ -67,10 +63,10 @@ class STable extends React.Component<any, any>{
       spinning: true,
       ...pchange && { pageData: p },
       ...schange && { searchData: s },
-    });
+    } as {});
     let xhrSuccess: any = false;
     try {
-      const res = await getData(p, s);
+      const res = await getData(p!, s!);
       xhrSuccess = {
         rowData: res.data,
         total: 166,
@@ -93,7 +89,7 @@ class STable extends React.Component<any, any>{
     } catch { }
   }
 
-  setSelectChange = () => { this.setState(({ selectChange }: any) => ({ selectChange: !selectChange })); }
+  setSelectChange = () => { this.setState(({ selectChange }) => ({ selectChange: !selectChange })); }
 
   render() {
     const { searchConfig, column, selectAbled, operationList, toolBar, pageSizeOptions,
@@ -124,5 +120,72 @@ class STable extends React.Component<any, any>{
     </div>;
   }
 }
+
 export default STable;
 
+export interface StableProps {
+  selectAbled?: boolean
+  initFetch: boolean
+  getData: (pageData: PageDataType, searchData: SearchDataType) => Promise<any>
+  searchConfig: SearchConfigType[]
+  column: StableColDef[]
+  operationList: OperationListType[]
+  toolBar: ToolBarType[]
+  pageSizeOptions?: string[]
+  searchOption: { [key: string]: { label: any, value: any }[] }
+  getTableApi: (api: TableApi) => void
+  defaultPageSize?: number
+}
+
+export interface StableState {
+  selectChange: boolean
+  spinning: boolean
+  rowData: any[]
+  total: number
+  searchData: SearchDataType
+  pageData: PageDataType
+
+}
+
+
+export interface PageDataType {
+  page: number
+  pageSize: number
+}
+
+export interface SearchDataType {
+  [key: string]: any
+}
+
+export interface SearchConfigType {
+  label: string,
+  name: string,
+  type: 'input' | 'select' | 'number' | 'data' | 'range',
+  initialValue?: any
+}
+
+export interface StableColDef extends ColDef {
+  copyAdled?: boolean
+}
+export interface OperationListType extends OperationListChildrenType {
+  children?: OperationListChildrenType[]
+}
+export interface OperationListChildrenType {
+  text: string,
+  click?: (selectRow: any[], tableApi: TableApi) => void,
+}
+
+export interface TableApi {
+  gridApi?: GridApi
+  getListData: (p: PageDataType, s: SearchDataType, b?: boolean) => void
+  getSearchData: () => SearchDataType
+  getPageData: () => PageDataType
+}
+
+export interface ToolBarType {
+  text: string,
+  type?: string,
+  onClick?: (a: React.MouseEventHandler<HTMLElement>, b: any[], c: TableApi) => void,
+  loading?: boolean,
+  disabled?: (rows: any[]) => boolean,
+}

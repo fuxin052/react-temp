@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
-import STable from 'src/components/search-table';
+import STable, { StableProps } from 'src/components/search-table';
 import moment from 'moment';
 
 
-class Index extends Component<any, any> {
-  state = {
+class Index extends Component<any, StableProps> {
+  state: StableProps = {
     selectAbled: true,
     operationList: [
       { text: '设置', click: (...arr: any) => { console.log(arr); } },
@@ -84,13 +84,11 @@ class Index extends Component<any, any> {
       {
         text: '重新加载',
         type: '',
-        onClick: (a: any, b: any, c: { getListData: (a: any, b: any, c: any) => void; }) => c.getListData(undefined, undefined, true),
+        onClick: (a) => { console.log(a); },
         loading: false,
-        disabled: (rows: any[]) => rows.length === 0,
+        disabled: (rows) => rows.length === 0,
       },
     ],
-    pageSizeOptions: ['15', '50', '100', '200'],
-    defaultPageSize: 50,
     getTableApi: () => { },
     initFetch: false,
   }
