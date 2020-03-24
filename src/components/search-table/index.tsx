@@ -10,21 +10,31 @@ import { GridReadyEvent, GridApi } from 'ag-grid-community';
 interface TableApi {
   gridApi?: GridApi
   getListData: ([p]: any, [s]: any, b?: boolean) => void
-  searchData: any
-  pageData: any
+  getSearchData: () => any
+  getPageData: () => any
 }
 
 class STable extends React.Component<any, any>{
-
-  state = {
-    selectChange: true,
-    spinning: false,
-    rowData: [],
-    total: 0,
-    searchData: {},
-    pageData: {},
+  constructor(props: any) {
+    super(props);
+    this.state = {
+      selectChange: true,
+      spinning: false,
+      rowData: [],
+      total: 0,
+      searchData: {},
+      pageData: {},
+    };
+    this.api = {
+      getListData: this.getListData,
+      getSearchData: () => this.state.searchData,
+      getPageData: () => this.state.pageData,
+    };
   }
+  api: TableApi
+  static defaultProps = {
 
+  }
   getListData = async (p?: any, s?: any, firstPage?: boolean) => {
     const { pageData, searchData } = this.state;
     const { getData } = this.props;
@@ -46,6 +56,7 @@ class STable extends React.Component<any, any>{
     }
     this.setState({ spinning: true });
     try {
+      console.log(p, s);
       const res = await getData(p, s);
       this.setState({
         rowData: res.data,
@@ -54,16 +65,10 @@ class STable extends React.Component<any, any>{
     } catch{ }
     this.setState({ spinning: false });
   }
-
   componentDidMount() {
     this.getListData();
   }
 
-  api: TableApi = {
-    getListData: this.getListData,
-    searchData: this.state.searchData,
-    pageData: this.state.pageData,
-  }
   render() {
     const {
       searchConfig, column, selectAbled, operationList,
@@ -80,7 +85,7 @@ class STable extends React.Component<any, any>{
       <SearchForm getListData={this.getListData} searchConfig={searchConfig} />
       <Spin spinning={spinning}>
         {toolBar && toolBar.length ? <ToolBar api={this.api} selectChange={selectChange} toolBarList={toolBar} /> : null}
-        <TableBase setSelectChange={() => { this.setState(({ selectChange }: any) => ({ selectChange: !selectChange })); }} setGridApi={setGridApi} rowData={rowData} column={column} selectAbled={selectAbled} operationList={operationList} />
+        <TableBase setSelectChange={() => { this.setState(({ selectChange }: any) => ({ selectChange: !selectChange })); }} setGridApi={setGridApi} rowData={rowData} api={this.api} column={column} selectAbled={selectAbled} operationList={operationList} />
         <BottomTool getListData={this.getListData} pageData={pageData} total={total} />
       </Spin>
     </div>;

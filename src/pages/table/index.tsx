@@ -82,7 +82,6 @@ class Index extends Component<any, any> {
         disabled: (rows: any[]) => rows.length === 0,
       },
     ],
-    disabled: false,
     getTableApi: () => { },
   }
   render() {

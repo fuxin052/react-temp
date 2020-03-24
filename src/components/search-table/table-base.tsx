@@ -167,7 +167,7 @@ const handlerColumn = (props: any): any[] => {
             <Menu>
               {item.children.map((childrenItem: any, childrenIndex: number) =>
                 <Menu.Item key={childrenIndex}>
-                  <span className="table-action-button" style={{ fontSize: 12 }} onClick={() => { childrenItem.click && childrenItem.click(prop, props); }}>{childrenItem.text}</span>
+                  <span className="table-action-button" style={{ fontSize: 12 }} onClick={() => { childrenItem.click && childrenItem.click(prop, props.api); }}>{childrenItem.text}</span>
                 </Menu.Item>,
               )}</Menu>
           }>
