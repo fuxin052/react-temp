@@ -132,7 +132,7 @@ export interface StableProps {
   operationList: OperationListType[]
   toolBar: ToolBarType[]
   pageSizeOptions?: string[]
-  searchOption: { [key: string]: { label: any, value: any }[] }
+  searchOption: { [key: string]: { label: string, value: any }[] }
   getTableApi: (api: TableApi) => void
   defaultPageSize?: number
 }
@@ -165,6 +165,7 @@ export interface SearchConfigType {
 }
 
 export interface StableColDef extends ColDef {
+  /* 设置true有复制此单元格文字功能 */
   copyAdled?: boolean
 }
 export interface OperationListType extends OperationListChildrenType {

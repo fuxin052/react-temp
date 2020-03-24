@@ -28,7 +28,7 @@ class Index extends Component<any, StableProps> {
       { label: '222222', value: 2 },
       { label: '333333', value: 3 }],
     },
-    getData: (pageData: any, searchData: any) => fetch('http://rap2.taobao.org:38080/app/mock/149215/mock/list').then(res => res.json()),
+    getData: (pageData, searchData) => fetch('http://rap2.taobao.org:38080/app/mock/149215/mock/list').then(res => res.json()),
     column: [
       {
         headerName: '编号',
@@ -39,7 +39,7 @@ class Index extends Component<any, StableProps> {
       {
         headerName: '启用',
         field: 'disabled',
-        valueGetter: (r: any) => r.data.disabled ? '启用' : '禁用',
+        valueGetter: (r) => r.data.disabled ? '启用' : '禁用',
         autoHeight: true,
         width: 90,
       },
@@ -65,7 +65,7 @@ class Index extends Component<any, StableProps> {
       {
         headerName: '状态',
         field: 'status',
-        valueGetter: (r: any) => r.data.status ? '已完成' : '未完成',
+        valueGetter: (r) => r.data.status ? '已完成' : '未完成',
       },
       {
         headerName: '修改日期',
