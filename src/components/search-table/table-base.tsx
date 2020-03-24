@@ -193,7 +193,7 @@ const handlerColumn = (props: any): any[] => {
 };
 
 const TableBase = (props: any) => {
-  const { rowData, setGridApi, setSelectChange  } = props;
+  const { rowData, setGridApi, setSelectChange } = props;
   return <div className="ag-theme-balham st-table-root" style={{ width: '100%', minHeight: 300 }}>
     <AgGridReact
       rowSelection="multiple"

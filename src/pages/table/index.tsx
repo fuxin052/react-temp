@@ -4,7 +4,7 @@ import STable from 'src/components/search-table';
 
 
 
-class Index extends Component<any,any> {
+class Index extends Component<any, any> {
   state = {
     selectAbled: true,
     operationList: [
@@ -77,13 +77,13 @@ class Index extends Component<any,any> {
       {
         text: '重新加载',
         type: '',
-        onClick: () => {
-          this.setState(({toolBar}:any)=>{toolBar[0].loading = true;return {toolBar:[...toolBar]};});
-        },
+        onClick: (a: any, b: any, c: { getListData: (a: any, b: any, c: any) => void; }) => c.getListData(undefined, undefined, true),
         loading: false,
-        disabled: () => false,
+        disabled: (rows: any[]) => rows.length === 0,
       },
     ],
+    disabled: false,
+    getTableApi: () => { },
   }
   render() {
     return (

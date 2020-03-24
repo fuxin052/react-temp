@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef, useCallback } from 'react';
+import React from 'react';
 import TableBase from './table-base';
 import './index.less';
 import ToolBar from './tool-bar';
@@ -7,45 +7,83 @@ import BottomTool from './bottom-tool';
 import { Spin } from 'antd';
 import { GridReadyEvent, GridApi } from 'ag-grid-community';
 
-const STable = (props: any) => {
+interface TableApi {
+  gridApi?: GridApi
+  getListData: ([p]: any, [s]: any, b?: boolean) => void
+  searchData: any
+  pageData: any
+}
 
+class STable extends React.Component<any, any>{
 
-  const { searchConfig, column, selectAbled, operationList, getData, toolBar } = props;
-  console.log(toolBar);
-  const [rowData, setRowData] = useState([]);
-  const [spinning, setSpinning] = useState(false);
-  const [selectChange, setSelectChange] = useState(1);
+  state = {
+    selectChange: true,
+    spinning: false,
+    rowData: [],
+    total: 0,
+    searchData: {},
+    pageData: {},
+  }
 
-  const [searchData, setSearchData] = useState({});
-  const [pageData, setPageData] = useState({});
-
-  const gridApi = useRef<GridApi>();
-  const setGridApi = (params: GridReadyEvent) => { gridApi.current = params.api; };
-
-  const getListData = useCallback(() => {
-    setSpinning(true);
-    getData(pageData, searchData)
-      .then((res: any) => {
-        setSpinning(false);
-        setRowData(res.data);
+  getListData = async (p?: any, s?: any, firstPage?: boolean) => {
+    const { pageData, searchData } = this.state;
+    const { getData } = this.props;
+    if (p) {
+      this.setState({ pageData: p });
+    } else {
+      p = pageData;
+    }
+    if (s) {
+      this.setState({ searchData: s });
+    } else {
+      s = searchData;
+    }
+    if (firstPage) {
+      if (p!.page !== 1) {
+        p.page = 1;
+        this.setState({ pageData: { ...p } });
+      }
+    }
+    this.setState({ spinning: true });
+    try {
+      const res = await getData(p, s);
+      this.setState({
+        rowData: res.data,
+        total: 166,
       });
-  }, [getData]);
+    } catch{ }
+    this.setState({ spinning: false });
+  }
 
-  useEffect(() => {
-    getListData();
-  }, [getListData]);
+  componentDidMount() {
+    this.getListData();
+  }
 
-  return <div className="search-table-component">
-    <SearchForm searchConfig={searchConfig} />
-    <Spin spinning={spinning}>
-      {toolBar && toolBar.length > 0 ? <ToolBar api={gridApi.current} selectChange={selectChange}
-        getData={getListData} toolBarList={toolBar}
-      /> : null}
-      <TableBase setSelectChange={() => setSelectChange(t => (t + 1))} setGridApi={setGridApi} rowData={rowData} column={column} selectAbled={selectAbled} operationList={operationList} />
-      <BottomTool />
-    </Spin>
-  </div>;
-};
+  api: TableApi = {
+    getListData: this.getListData,
+    searchData: this.state.searchData,
+    pageData: this.state.pageData,
+  }
+  render() {
+    const {
+      searchConfig, column, selectAbled, operationList,
+      toolBar, getTableApi,
+    } = this.props;
+    const { total, pageData, spinning, selectChange, rowData } = this.state;
 
+    const setGridApi = (params: GridReadyEvent) => {
+      this.api.gridApi = params.api;
+      getTableApi(this.api);
+    };
 
+    return <div className="search-table-component">
+      <SearchForm getListData={this.getListData} searchConfig={searchConfig} />
+      <Spin spinning={spinning}>
+        {toolBar && toolBar.length ? <ToolBar api={this.api} selectChange={selectChange} toolBarList={toolBar} /> : null}
+        <TableBase setSelectChange={() => { this.setState(({ selectChange }: any) => ({ selectChange: !selectChange })); }} setGridApi={setGridApi} rowData={rowData} column={column} selectAbled={selectAbled} operationList={operationList} />
+        <BottomTool getListData={this.getListData} pageData={pageData} total={total} />
+      </Spin>
+    </div>;
+  }
+}
 export default STable;

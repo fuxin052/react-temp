@@ -15,7 +15,9 @@ const SearchForm = (props: any) => {
     const style = { marginLeft: '0.2em', transition: '0.3s all', transform, display: 'inline-block' };
     return <span onClick={() => setCollapsed(!collapsed)} className="collapse-button table-action-button">{txt}<IconSVG type="down" style={style} /></span>;
   };
-  const onFinish = (v: any) => { console.log(v); };
+  const onFinish = (v: any) => {
+    props.getListData(undefined, v, true);
+  };
   const resetFields = () => form.resetFields();
   const cols = getCol(clientWidth);
   searchConfig = searchConfig || [];

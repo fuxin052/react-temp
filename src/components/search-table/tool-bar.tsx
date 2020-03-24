@@ -1,19 +1,30 @@
-import React, { memo } from 'react';
+import React, { useState } from 'react';
 import { Button } from 'antd';
 
-export default memo((props: any) => {
+export default (props: any) => {
   const { toolBarList } = props;
+  const [loading, setLoading] = useState(0);
+  const selectRow = props.api.gridApi ? props.api.gridApi.getSelectedRows() : [];
   return <div className="st-tool-root">
     {
-      toolBarList.map((v: any, i: number) =>
+      toolBarList.map((item: any, index: number) =>
         <Button
-          key={i}
-          {...v}
-          onClick={e => v.onClick && v.onClick(e, props.api)}
-          disabled={v.disabled && v.disabled()}
+          {...item}
+          key={index}
+          onClick={
+            async e => {
+              setLoading(l => l + 1);
+              try {
+                item.onClick && await item.onClick(e, selectRow, props.api);
+              } catch{ }
+              setLoading(l => l - 1);
+            }
+          }
+          loading={!!loading}
+          disabled={item.disabled && item.disabled(selectRow, props.api)}
         >
-          {v.text}
+          {item.text}
         </Button>)
     }
   </div>;
-});
+};
